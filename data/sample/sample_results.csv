@@ -1,0 +1,7 @@
+participant_id,group,direction_recall_accuracy,landmark_recognition_accuracy,tbt_trips_30d,map_study_trips_30d
+P01,TBT,70,65,8,3
+P02,TBT,75,72,6,4
+P03,TBT,68,70,10,2
+P04,MAP,85,82,5,7
+P05,MAP,88,80,4,8
+P06,MAP,90,86,6,6

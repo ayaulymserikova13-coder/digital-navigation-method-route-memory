@@ -1,0 +1,35 @@
+experiment:
+  title: "The effect of digital navigation method on route memory in young people"
+  groups:
+    - TBT
+    - MAP
+  baseline_group: "TBT"
+  participants_per_group: 10
+  route_type: "unfamiliar walking route"
+  traversals: 1
+
+protocol:
+  map_study_minutes: 3
+  test_delay_minutes: 2
+  direction_decision_points: 5
+  landmark_photos_total: 10
+  encountered_landmarks: 5
+  new_landmarks: 5
+
+metrics:
+  primary: "direction_recall_accuracy"
+  secondary: "landmark_recognition_accuracy"
+  rq1_tbt: "tbt_trips_30d"
+  rq1_map: "map_study_trips_30d"
+
+data:
+  sample_path: "data/sample/sample_results.csv"
+  output_path: "benchmark_results.csv"
+
+controls:
+  same_route: true
+  same_start_finish: true
+  same_direction: true
+  same_test_interval: true
+  same_scoring_rules: true
+  same_test_materials: true
