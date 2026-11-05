@@ -1,105 +1,257 @@
+
 # The Effect of Digital Navigation Method on Route Memory in Young People
 
-## Authors
+**Authors:** Ayaulym Serikova and Gulnar Khabibullayeva
 
-- Ayaulym Serikova
-- Gulnar Khabibullayeva
+## 1. Research Overview
 
-## Full Research Title
+This project investigates how digital navigation methods affect route memory in young people.
 
-The Effect of Digital Navigation Method on Route Memory in Young People: A Comparison of Turn-by-Turn Directions and Prior Study of a Digital Map
+The experiment compares two navigation conditions:
 
-## Overview
+- **TBT (baseline):** Turn-by-turn digital directions.
+- **MAP:** Prior study of a digital map before walking without navigation assistance.
 
-This project investigates how two digital navigation methods influence route memory in young people. The study compares turn-by-turn digital guidance with prior study of a digital map.
+The research focuses on direction recall accuracy, landmark recognition accuracy, and self-reported navigation habits.
 
-The study uses a quantitative preliminary randomized between-group design. Route memory is measured using direction recall accuracy and landmark recognition accuracy. Navigation habits during the previous 30 days are recorded using a structured questionnaire.
+The experimental dataset contains results from 20 participants, with 10 participants in each group.
 
-The planned sample consists of 20 young adult volunteers, with 10 participants assigned to each experimental condition.
+## 2. Research Questions
 
-## Research Questions
+**RQ1:** How frequently do participants report using turn-by-turn navigation and prior digital map study for unfamiliar walking trips during the previous 30 days?
 
-1. How frequently do participants report using turn-by-turn navigation and prior digital map study for unfamiliar-route walking trips during the past 30 days?
-2. Does navigation method affect direction recall accuracy after one traversal of an unfamiliar walking route?
-3. Does navigation method affect landmark recognition accuracy after one traversal of an unfamiliar walking route?
+**RQ2:** Does navigation method affect direction recall accuracy after one traversal of an unfamiliar walking route?
 
-## Project Structure
+**RQ3:** Does navigation method affect landmark recognition accuracy after one traversal of an unfamiliar walking route?
 
-.
-├── README.md
-├── .gitignore
-├── LICENSE
-├── Dockerfile
-├── requirements.txt
-├── configs/
-│   └── config.yaml
-├── src/
-│   └── benchmark.py
-├── data/
-│   └── sample/
-│       └── sample_results.csv
-└── docs/
-    └── methodology_card.md
+## 3. Experimental Design
 
-## Planned Benchmarks
+The study uses a quantitative between-group experimental design.
 
-| Metric | Role | Comparison |
-|---|---|---|
-| Direction recall accuracy (%) | Primary Metric | TBT vs Map Study |
-| Landmark recognition accuracy (%) | Secondary Metric | TBT vs Map Study |
-| Navigation frequency over 30 days | RQ1 Metric | TBT use vs prior map-study use |
-| Mean accuracy difference | Comparative Summary | Map Study mean − TBT mean |
+Each participant completes one traversal of an unfamiliar walking route.
 
-The TBT group is used as the active baseline condition.
+The two experimental conditions are:
 
-## Sample Data
+- TBT: Navigation instructions are provided at predefined decision points.
+- MAP: Participants study a digital map for three minutes and then walk without the map.
 
-The file data/sample/sample_results.csv contains synthetic test data created only to verify that the benchmark pipeline works correctly.
+Route memory is assessed using:
 
-The sample file does not contain real participant data.
+- Five direction recall questions.
+- Ten landmark recognition questions.
 
-## System Requirements
+A standardized two-minute delay is applied before testing.
 
-- Python 3.11
-- pandas 2.2.3
-- PyYAML 6.0.2
+Direction recall accuracy is the primary outcome. Landmark recognition accuracy is the secondary outcome.
 
-Docker can also be used to reproduce the environment.
+## 4. Data Processing and Statistical Analysis
 
-## Quickstart
+The analysis is implemented in Python using pandas, NumPy, and Matplotlib.
 
-Install the required dependencies:
+The processing pipeline performs:
 
+1. Data loading and validation.
+2. Participant-level accuracy calculations.
+3. Descriptive statistics.
+4. Bootstrap estimation of 95% confidence intervals.
+5. Between-group comparisons.
+6. Scientific visualization.
+
+Descriptive statistics include mean, median, standard deviation, and the 25th, 75th, and 95th percentiles.
+
+Bootstrap calculations use 10,000 resamples and a fixed random seed of 42.
+
+Group differences are calculated as:
+
+**Difference = MAP mean - TBT mean**
+
+Confidence intervals are estimated using the percentile bootstrap method.
+
+## 5. Experimental Results
+
+### 5.1. Descriptive Statistics
+
+| Metric | Group | N | Mean (%) | Median (%) | SD |
+|---|---|---:|---:|---:|---:|
+| Direction recall | TBT | 10 | 72 | 80 | 13.98 |
+| Direction recall | MAP | 10 | 78 | 80 | 17.51 |
+| Landmark recognition | TBT | 10 | 67 | 70 | 11.60 |
+| Landmark recognition | MAP | 10 | 85 | 80 | 8.50 |
+
+### 5.2. Bootstrap Confidence Intervals
+
+| Metric | Group | Mean (%) | 95% Bootstrap CI (%) |
+|---|---|---:|---|
+| Direction recall | TBT | 72 | [64, 80] |
+| Direction recall | MAP | 78 | [68, 88] |
+| Landmark recognition | TBT | 67 | [60, 74] |
+| Landmark recognition | MAP | 85 | [80, 90] |
+
+### 5.3. Between-Group Comparisons
+
+| Metric | MAP - TBT (percentage points) | 95% Bootstrap CI |
+|---|---:|---|
+| Direction recall | +6 | [-6, 20] |
+| Landmark recognition | +18 | [10, 27] |
+
+**RQ2 interpretation:** MAP participants achieved a higher mean direction recall accuracy than TBT participants. However, the confidence interval includes zero, so the results do not provide clear evidence of a difference in direction recall.
+
+**RQ3 interpretation:** MAP participants achieved a higher mean landmark recognition accuracy. The bootstrap confidence interval for the difference excludes zero, suggesting evidence of a difference favoring MAP in this sample.
+
+These findings should be interpreted cautiously because each group contains only 10 participants.
+
+## 6. Navigation Habits (RQ1)
+
+Participants reported their navigation habits over the previous 30 days.
+
+| Navigation method | Mean trips | Median trips |
+|---|---:|---:|
+| Turn-by-turn navigation | 15.65 | 15 |
+| Prior digital map study | 9.70 | 10.5 |
+
+The mean paired difference was **5.95 trips**, with a 95% bootstrap confidence interval of **[2.30, 9.60] trips**.
+
+Participants reported more frequent use of turn-by-turn navigation than prior digital map study.
+
+This analysis describes self-reported habits and does not establish a causal effect of navigation frequency on route memory.
+
+## 7. Scientific Visualizations
+
+All scientific figures are available in both high-resolution PNG (300 dpi) and vector PDF formats.
+
+### Direction Recall Accuracy
+
+![Direction recall with bootstrap confidence intervals](reports/figures/direction_recall.png)
+
+### Landmark Recognition Accuracy
+
+![Landmark recognition with bootstrap confidence intervals](reports/figures/landmark_recognition.png)
+
+### Between-Group Differences
+
+![Mean differences with bootstrap confidence intervals](reports/figures/group_differences.png)
+
+### Navigation Habits
+
+![Paired navigation habits differences](reports/figures/navigation_habits.png)
+
+## 8. Project Architecture
+
+The research data-processing workflow is documented using C4-style Mermaid diagrams.
+
+The architecture includes:
+
+- Research participants and data collection.
+- Original experimental data.
+- Python data-processing scripts.
+- Processed statistical summaries.
+- Scientific visualization.
+- Jupyter Notebook analysis.
+- Research documentation and GitHub.
+
+See [Domain Model](docs/domain_model.md).
+
+## 9. Project Structure
+
+```text
+digital-navigation-method-route-memory/
+|-- configs/
+|   `-- config.yaml
+|-- data/
+|   |-- raw/                  # Private experimental data
+|   |-- processed/            # Statistical summaries
+|   `-- sample/               # Synthetic Task 2 sample
+|-- docs/
+|   |-- methodology_card.md
+|   `-- domain_model.md
+|-- notebooks/
+|   `-- 01_data_analysis.ipynb
+|-- reports/
+|   `-- figures/
+|-- src/
+|   |-- benchmark.py
+|   |-- process_data.py
+|   `-- visualize.py
+|-- .gitignore
+|-- Dockerfile
+|-- LICENSE
+|-- README.md
+`-- requirements.txt
+```
+
+## 10. Installation
+
+**Requirements:** Python 3.11 or newer.
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/ayaulymserikova13-coder/digital-navigation-method-route-memory.git
+cd digital-navigation-method-route-memory
 python -m pip install -r requirements.txt
+```
 
-Run the benchmark:
+## 11. Running the Analysis
 
+### Task 2: Synthetic Benchmark
+
+The original benchmark uses synthetic demonstration data.
+
+```bash
 python src/benchmark.py
+```
 
-The script reads the configuration and synthetic sample data, calculates the planned benchmark summaries, prints the results, and generates:
+The sample dataset is located at `data/sample/sample_results.csv`.
 
-benchmark_results.csv
+Synthetic Task 2 results must not be interpreted as experimental findings.
 
-## Docker
+### Task 3: Experimental Data Analysis
 
-Build the Docker image:
+If authorized access to the original experimental Excel dataset is available, place it at:
 
-docker build -t route-memory-benchmark .
+```text
+data/raw/Route_Memory_Google_Forms_Results.xlsx
+```
 
-Run the benchmark:
+Then run:
 
-docker run --rm route-memory-benchmark
+```bash
+python src/process_data.py
+python src/visualize.py
+```
 
-## Methodology
+Open `notebooks/01_data_analysis.ipynb` in VS Code or Jupyter and run all cells.
 
-The full Methodology Passport Card is available in:
+**Reproducibility limitation:** The original participant-level data are excluded from the public repository for privacy reasons. Recalculation from raw responses requires authorized access to the private dataset.
 
-docs/methodology_card.md
+The repository includes aggregated statistical summaries and generated scientific figures for reviewing the reported results.
 
-## Citation
+## 12. Data Quality and Limitations
+
+The analysis checks participant identifiers, group assignments, answer categories, and accuracy ranges.
+
+The processed dataset contains 20 participants, with 10 in each group.
+
+Study limitations include:
+
+- Small sample size.
+- Limited generalizability.
+- Self-reported navigation habits.
+- Uncertainty in estimated group differences.
+- Restricted public access to participant-level experimental data.
+
+Bootstrap confidence intervals describe statistical uncertainty but do not eliminate possible experimental biases.
+
+## 13. Methodology
+
+The detailed methodology is available in:
+
+[Methodology Passport Card](docs/methodology_card.md)
+
+## 14. Citation
 
 Serikova, A., & Khabibullayeva, G. (2026). *The Effect of Digital Navigation Method on Route Memory in Young People: A Comparison of Turn-by-Turn Directions and Prior Study of a Digital Map.* GitHub research repository.
 
-## License
+## 15. License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License. See [LICENSE](LICENSE).

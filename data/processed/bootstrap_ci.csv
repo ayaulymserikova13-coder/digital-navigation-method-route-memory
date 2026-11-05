@@ -1,0 +1,5 @@
+group,metric,mean,ci_lower,ci_upper,n_bootstrap
+MAP,direction_recall_accuracy,78.0,68.0,88.0,10000
+MAP,landmark_recognition_accuracy,85.0,80.0,90.0,10000
+TBT,direction_recall_accuracy,72.0,64.0,80.0,10000
+TBT,landmark_recognition_accuracy,67.0,60.0,74.0,10000
