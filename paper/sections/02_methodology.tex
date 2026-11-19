@@ -1,0 +1,47 @@
+\section{Methodology}\label{sec:methods}
+\subsection{Design and Experimental Protocol}
+The study used a quantitative, randomized, between-group design with 20 volunteers ($n=10$ per condition). Each participant encountered the same unfamiliar pedestrian route once. MAP participants studied a digital route map for three minutes, then walked without map access; TBT participants received standardized digital turn instructions during traversal. Both conditions were followed by a two-minute delay before the same memory tests. Thus, the intervention is a \emph{package} of presentation format, timing, and availability; randomization does not isolate these components separately.
+
+The direction test contained five photographed decision points; the landmark-recognition test contained ten photographs, five previously encountered and five novel. The questionnaire additionally elicited each participant's reported number of unfamiliar-route trips using each method in the previous 30 days. These paired retrospective reports were measured characteristics (RQ1), \emph{not} the randomized independent variable. Table~\ref{tab:protocol} summarizes the operational settings. The study and computational sequence appear in Fig.~\ref{fig:pipeline}.
+\begin{table}[t]
+\caption{Operational Settings and Measurement Units}\label{tab:protocol}
+\centering\footnotesize
+\begin{tabular}{p{0.40\columnwidth}p{0.48\columnwidth}}\toprule
+Component & Fixed setting \\\midrule
+Assignment & Randomized; MAP 10, TBT 10 \\
+Exposure & One unfamiliar walking route \\
+MAP preparation & Digital map study, 3 min \\
+TBT assistance & Digital turns during walking \\
+Retention interval & 2 min before testing \\
+Direction measure & 5 photographed decisions \\
+Landmark measure & 5 old and 5 new photos \\
+Habits measure & Paired self-reported trips, 30 days \\
+Bootstrap & 10,000 resamples; seed 42 \\\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\fbox{\parbox{0.91\columnwidth}{\centering
+Enrollment ($N=20$) $\longrightarrow$ random assignment\\[3pt]
+\textbf{MAP ($n=10$)}: 3-min map study \quad\textbf{TBT ($n=10$)}: guided walk\\[3pt]
+Same route (one traversal) $\longrightarrow$ 2-min delay\\[3pt]
+5 direction items $+$ 10 landmark items\\[3pt]
+Validation $\longrightarrow$ participant scoring $\longrightarrow$ group contrasts\\[3pt]
+10,000 bootstrap resamples $\longrightarrow$ confidence intervals}}
+\caption{Experiment and computational analysis workflow.}\label{fig:pipeline}
+\end{figure}
+
+\subsection{Outcomes and Statistical Analysis}
+For participant $i$, accuracy was calculated as
+\begin{equation}\label{eq:accuracy}
+D_i=100\frac{c_{i,D}}{5},\qquad L_i=100\frac{c_{i,L}}{10},
+\end{equation}
+where $c_{i,D}$ is the number of correct turning decisions and $c_{i,L}$ includes both recognized old landmarks and correctly rejected novel photographs. The unit of analysis is the participant, not the individual item. For $Y\in\{D,L\}$, the primary between-group contrast is
+\begin{equation}\label{eq:delta}
+\Delta_Y=\overline{Y}_{\mathrm{MAP}}-\overline{Y}_{\mathrm{TBT}}.
+\end{equation}
+Positive values favor MAP. Percentile 95\% bootstrap confidence intervals (CIs) were obtained by independently resampling participants within each assigned group, 10,000 times. The RQ1 paired contrast is instead based on each person's TBT-trip count minus MAP-study-trip count, with paired resampling. The two procedures must not be interchanged. To evaluate the revised directional hypotheses, we additionally computed exact one-sided randomization/permutation $p$-values for $\Delta_Y>0$ by enumerating all $\binom{20}{10}=184{,}756$ equal-size group assignments. The test statistic was the difference in group means, with ties included in the upper tail; the reference threshold was $\alpha=0.05$. These tests are reported as post-data analyses because the directional wording was formally revised after data collection. The original two-sided 95\% bootstrap CIs are retained for comparability and were not replaced with one-sided intervals.
+
+\subsection{Reproducibility and Data Handling}
+The Python analysis reads the private questionnaire workbook, validates participant identifiers, condition counts and response categories, scores each test, and exports descriptive statistics, group comparisons, data-quality checks, and bootstrap intervals. Group results and publication figures are retained in \texttt{data/processed/} and \texttt{reports/figures/}; individual-level responses are excluded from the public repository. The bootstrap seed and count are recorded in the configuration. The public source permits inspection of code and aggregate results, but the analysis cannot be fully rerun from the public ZIP without access to the protected raw workbook. The separate synthetic-data benchmark is not presented as experimental evidence. Docker execution was not independently verified and is not claimed here.
